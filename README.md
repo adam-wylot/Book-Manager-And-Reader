@@ -1,4 +1,4 @@
-# Libraria — Personal Book Manager
+# Libraria — Personal Book Manager And Reader
 
 A desktop application for organizing and reading EPUB books, built with **WPF** and **.NET 9**. Libraria lets users create personal libraries, manage book metadata, track reading progress, and read books in a built-in EPUB reader — all without external dependencies beyond the .NET runtime.
 
@@ -152,9 +152,3 @@ This project showcases practical desktop development skills relevant to .NET/WPF
 - **Format parsing** — EPUB structure (OPF spine/manifest) parsed with LINQ to XML
 - **State management** — shared collections, navigation between view models, automatic progress saving
 - **UX details** — keyboard shortcuts, placeholder text, conditional visibility, status messages
-
----
-
-## Author
-
-**Adam** — WPF course project (2026)
