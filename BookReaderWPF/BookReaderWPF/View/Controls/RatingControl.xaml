@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="BookReader.View.RatingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel x:Name="StarsPanel" 
+                Orientation="Horizontal" 
+                Background="Transparent" 
+                MouseLeave="StarsPanel_MouseLeave" />
+</UserControl>

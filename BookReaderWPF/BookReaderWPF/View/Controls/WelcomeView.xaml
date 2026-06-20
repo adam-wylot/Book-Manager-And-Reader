@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="BookReader.View.WelcomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="White">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-50,0,0">
+            <Image Source="/Resources/book.png" Width="64" Opacity="0.3" Margin="0,0,0,20"/>
+
+            <TextBlock Text="No Repository Open" FontSize="28" Foreground="{StaticResource DarkerColorBrush}" HorizontalAlignment="Center" Margin="0,0,0,10" FontFamily="Arial" FontWeight="SemiBold"/>
+            <TextBlock Text="Create a new library or open an existing one to get started." FontSize="15" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,40" FontFamily="Arial"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Create Repository" Command="{Binding CreateRepositoryCommand}" 
+                        Style="{StaticResource FlatButton}" Width="160" Height="45" FontSize="14"/>
+
+                <Rectangle Width="1" Fill="#E0E0E0" Margin="25,0" Height="40"/>
+
+                <Button Content="Open Repository" Command="{Binding OpenRepositoryCommand}" 
+                        Style="{StaticResource FlatButton}" Background="{StaticResource AccentColorBrush}" Width="160" Height="45" FontSize="14"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

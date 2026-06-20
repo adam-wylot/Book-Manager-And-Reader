@@ -1,0 +1,66 @@
+﻿<Window x:Class="BookReader.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:BookReader.ViewModel"
+        xmlns:views="clr-namespace:BookReader.View"
+        
+        Title="Libraria" Height="650" Width="1000" MinHeight="500" MinWidth="920"
+        Icon="/Resources/book.ico" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
+            <views:WelcomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BookListViewModel}">
+            <views:BookListView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BookDetailViewModel}">
+            <views:BookDetailView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Delete" Command="{Binding CurrentPage.DeleteBookCommand}"/>
+        <KeyBinding Key="E" Modifiers="Control" Command="{Binding CurrentPage.EditBookCommand}"/>
+        <KeyBinding Key="C" Modifiers="Control" Command="{Binding CreateRepositoryCommand}"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenRepositoryCommand}"/>
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding CurrentPage.AddBookCommand}"/>
+    </Window.InputBindings>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Background="#F0F0F0" Padding="2">
+            <MenuItem Header="Repository">
+                <MenuItem Header="Create..." Command="{Binding CreateRepositoryCommand}" InputGestureText="Ctrl+C" />
+                <MenuItem Header="Open..." Command="{Binding OpenRepositoryCommand}" InputGestureText="Ctrl+O" />
+            </MenuItem>
+            <MenuItem Header="Book" IsEnabled="{Binding IsRepositoryOpen}">
+                <MenuItem Header="Add..." Command="{Binding CurrentPage.AddBookCommand}" InputGestureText="Ctrl+A" />
+                <MenuItem Header="Edit..." Command="{Binding CurrentPage.EditBookCommand}" InputGestureText="Ctrl+E" />
+                <MenuItem Header="Delete" Command="{Binding CurrentPage.DeleteBookCommand}" InputGestureText="Del" />
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1" Background="{StaticResource PrimaryColorBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Width="48" Margin="15,0,10,0" Source="/Resources/book.png" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0">
+                <TextBlock Text="Libraria" FontSize="26" FontFamily="Segoe Script" Foreground="White" FontWeight="Bold"/>
+                <TextBlock Text="Personal Book Manager" Foreground="LightGray" FontSize="13" FontFamily="Arial" Margin="2,-2,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <ContentControl Grid.Row="2" Content="{Binding CurrentPage}" />
+
+        <views:StatisticsBarControl Grid.Row="3" />
+    </Grid>
+</Window>

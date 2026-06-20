@@ -1,0 +1,123 @@
+﻿<Window x:Class="BookReader.View.BookEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:BookReader.View"
+        
+        Title="{Binding WindowTitle}" Height="575" Width="480"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="{StaticResource PrimaryColorBrush}"
+        Icon="/Resources/book.ico">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="0,0,0,5" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource LighterColorBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource DarkerColorBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="0,0,0,15" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="CaretBrush" Value="White" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="0,0,20,0" VerticalAlignment="Center">
+            <Border Width="140" Height="210" Background="{StaticResource LighterColorBrush}" BorderBrush="{StaticResource DarkerColorBrush}" BorderThickness="1" Margin="0,30,0,10" CornerRadius="4">
+                <Grid>
+                    <TextBlock Text="No Cover" 
+                               Foreground="{StaticResource DarkerColorBrush}" 
+                               FontSize="16" 
+                               FontFamily="Arial" 
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               Visibility="{Binding NoCoverVisibility}"/>
+
+                    <Image Source="{Binding CoverBase64, Converter={StaticResource Base64ToImageConverter}}" 
+                           Stretch="UniformToFill"
+                           Visibility="{Binding CoverVisibility}"/>
+                </Grid>
+            </Border>
+
+            <Button Command="{Binding BrowseCoverCommand}" Content="Browse Image..." Margin="0,0,0,75"
+                    Style="{StaticResource FlatButton}" Background="{StaticResource DarkerColorBrush}" Padding="8" Height="20" />
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--- Pola do edycji -->
+            <StackPanel Grid.Row="0">
+                <Label Content="TITLE" />
+                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Content="AUTHOR" />
+                <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Content="DESCRIPTION" />
+                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Height="70" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+
+                <Label Content="EPUB FILE" />
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding ContentFilePath}" IsReadOnly="True" Margin="0,0,10,0" Foreground="White" />
+                    <Button Grid.Column="1" Command="{Binding BrowseBookCommand}" Content="Browse..." Width="70"
+                        Style="{StaticResource FlatButton}" Background="{StaticResource DarkerColorBrush}" Padding="10,5" />
+                </Grid>
+
+                <Label Content="TAGS" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding NewTag, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0" />
+                    <Button Grid.Column="1" Command="{Binding AddTagCommand}" Content="Add" Width="35"
+                        Style="{StaticResource FlatButton}" Background="{StaticResource AccentColorBrush}" Padding="15,5" />
+                </Grid>
+
+                <Border Background="{StaticResource LighterColorBrush}" BorderBrush="{StaticResource DarkerColorBrush}" BorderThickness="1" Height="60" CornerRadius="4" Padding="5">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <views:TagControl
+                        Tags="{Binding Tags}" 
+                        IsEditable="True" 
+                        RemoveCommand="{Binding RemoveTagCommand}" 
+                        ChipBackground="{StaticResource PrimaryColorBrush}"
+                    />
+                    </ScrollViewer>
+                </Border>
+
+                <views:RatingControl Value="{Binding Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" StarSize="28" Margin="0,20,0,30" />
+            </StackPanel>
+
+            <!--- Przyciski zapisu i cancel -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding CancelCommand}" Content="Cancel" Width="50" Height="30"
+                    Style="{StaticResource FlatButton}" Background="{StaticResource DarkerColorBrush}" Padding="20,8" Margin="0,0,10,0" />
+
+                <Button Command="{Binding SaveCommand}" Content="{Binding SaveButtonText}" Width="100" Height="30"
+                    Style="{StaticResource FlatButton}" Background="{StaticResource AccentColorBrush}" Padding="20,8" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

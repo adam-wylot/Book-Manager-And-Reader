@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="BookReader.View.StatisticsBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="{StaticResource DarkerColorBrush}" Height="28">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+            <TextBlock Text="📚 Total:" Foreground="LightGray" Margin="0,0,5,0" FontFamily="Arial"/>
+            <TextBlock Text="{Binding TotalBooks}" Foreground="White" FontWeight="Bold" Margin="0,0,15,0" FontFamily="Arial"/>
+
+            <TextBlock Text="📖 Read:" Foreground="LightGray" Margin="0,0,5,0" FontFamily="Arial"/>
+            <TextBlock Text="{Binding ReadBooks}" FontWeight="Bold" Margin="0,0,15,0" FontFamily="Arial" Foreground="LightGreen"/>
+
+            <TextBlock Text="⏳ In Progress:" Foreground="LightGray" Margin="0,0,5,0" FontFamily="Arial"/>
+            <TextBlock Text="{Binding InProgressBooks}" FontWeight="Bold" Margin="0,0,15,0" FontFamily="Arial" Foreground="Aqua"/>
+
+            <TextBlock Text="⭐ Avg Rating:" Foreground="LightGray" Margin="0,0,5,0" FontFamily="Arial"/>
+            <TextBlock Text="{Binding AverageRating}" FontWeight="Bold" Margin="0,0,15,0" FontFamily="Arial" Foreground="Orange"/>
+
+            <TextBlock Text="🏷️ Top Genre:" Foreground="LightGray" Margin="0,0,5,0" FontFamily="Arial"/>
+            <TextBlock Text="{Binding MostPopularGenre}" FontWeight="Bold" Margin="0,0,15,0" FontFamily="Arial" Foreground="Beige"/>
+        </StackPanel>
+
+        <TextBlock Grid.Column="1" Text="{Binding Message, FallbackValue='No repository open.'}" 
+                   Foreground="LightGray" FontStyle="Italic" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0"/>
+    </Grid>
+</UserControl>
